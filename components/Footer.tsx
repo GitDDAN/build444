@@ -29,7 +29,7 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="flex flex-col md:flex-row justify-between items-center text-xs text-gray-600 font-sans tracking-widest uppercase pt-12 border-t border-white/5">
-            <p>&copy; 2024 BUILD444. All Rights Reserved.</p>
+            <p>&copy; 2025 BUILD444. All Rights Reserved.</p>
             <div className="flex gap-6 mt-4 md:mt-0">
                 <a href="#" className="hover:text-white transition-colors">Privacy</a>
                 <a href="#" className="hover:text-white transition-colors">Terms</a>
