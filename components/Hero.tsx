@@ -22,16 +22,16 @@ const Hero: React.FC = () => {
           <div className="absolute inset-0 bg-black/40 mix-blend-multiply" />
         </div>
 
-        <div className="relative z-10 flex items-center justify-start w-full h-full pl-8 md:pl-16 lg:pl-24">
+        <div className="relative z-10 flex items-center justify-start w-full h-full px-6 md:pl-16 lg:pl-24">
           <div className="max-w-2xl">
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display font-bold text-6xl md:text-8xl lg:text-9xl leading-[0.9] text-white tracking-tighter mb-8 whitespace-nowrap"
+              className="font-display font-bold text-5xl sm:text-6xl md:text-8xl lg:text-9xl leading-[0.9] text-white tracking-tighter mb-8"
             >
-              AUTOMATE 
+              AUTOMATE
               <br />
               GROWTH.
               <br />

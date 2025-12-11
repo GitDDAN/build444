@@ -46,8 +46,8 @@ const HorizontalScrollSection: React.FC = () => {
 
   return (
     <section ref={targetRef} className="relative h-[350vh] bg-background">
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-        <motion.div style={{ x }} className="flex gap-4 md:gap-12 px-6 md:px-24">
+      <div className="sticky top-0 flex h-screen items-center overflow-x-auto overflow-y-hidden md:overflow-hidden scroll-smooth touch-pan-x">
+        <motion.div style={{ x }} className="flex gap-4 md:gap-12 px-6 md:px-24 md:pointer-events-none">
           
           {/* Intro Text Block before cards start */}
           <div className="flex flex-col justify-center min-w-[90vw] md:min-w-[40vw] pr-12">
@@ -65,16 +65,16 @@ const HorizontalScrollSection: React.FC = () => {
           {cards.map((card) => (
             <div
               key={card.id}
-              className="group relative h-[70vh] w-[85vw] md:w-[60vw] lg:w-[45vw] flex-shrink-0 overflow-hidden bg-surface border border-white/5 hover:border-white/20 transition-all duration-500"
+              className="group relative h-[70vh] w-[85vw] md:w-[60vw] lg:w-[45vw] flex-shrink-0 overflow-hidden bg-surface border border-white/10 hover:border-white/30 transition-all duration-300 pointer-events-auto"
             >
               {/* Background Image */}
-              <div className="absolute inset-0 transition-all duration-700 group-hover:scale-105">
+              <div className="absolute inset-0 transition-all duration-500 group-hover:scale-105">
                 <img
                   src={card.imgUrl}
                   alt={card.title}
-                  className="h-full w-full object-cover opacity-50 grayscale-[0.7] group-hover:opacity-60 group-hover:grayscale-0 transition-all duration-700"
+                  className="h-full w-full object-cover opacity-60 grayscale-[0.3] md:grayscale-[0.5] group-hover:opacity-70 group-hover:grayscale-0 transition-all duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent group-hover:via-black/10 transition-all duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent group-hover:via-black/5 transition-all duration-500" />
               </div>
 
               {/* Content */}

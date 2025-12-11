@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 const Footer: React.FC = () => {
+  const successMessageRef = useRef<HTMLDivElement>(null);
   // 1. STATE: Added 'businessName' and 'website'
   const [name, setName] = useState('');
   const [businessName, setBusinessName] = useState('');
@@ -9,6 +10,9 @@ const Footer: React.FC = () => {
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [websiteError, setWebsiteError] = useState('');
+  const [nameError, setNameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [descriptionError, setDescriptionError] = useState('');
 
   // 2. FUNCTION: Validates and formats website URL
   const validateAndFormatWebsite = (url: string): string | null => {
@@ -33,17 +37,44 @@ const Footer: React.FC = () => {
   // 3. FUNCTION: Sends data to n8n
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !description || !name) return;
+
+    // Reset all errors
+    setNameError('');
+    setEmailError('');
+    setDescriptionError('');
+    setWebsiteError('');
+
+    // Custom validation
+    let hasError = false;
+
+    if (!name.trim()) {
+      setNameError('Please enter your name');
+      hasError = true;
+    }
+
+    if (!email.trim()) {
+      setEmailError('Please enter your email');
+      hasError = true;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setEmailError('Please enter a valid email address');
+      hasError = true;
+    }
+
+    if (!description.trim()) {
+      setDescriptionError('Please describe your manual process');
+      hasError = true;
+    }
 
     // Validate website if provided
     if (website.trim()) {
       const formattedWebsite = validateAndFormatWebsite(website);
       if (formattedWebsite === null) {
         setWebsiteError('Please enter a valid domain (e.g., example.com)');
-        return;
+        hasError = true;
       }
-      setWebsiteError('');
     }
+
+    if (hasError) return;
 
     setStatus('loading');
 
@@ -76,6 +107,11 @@ const Footer: React.FC = () => {
       setEmail('');
       setDescription('');
 
+      // Scroll success message into view on mobile
+      setTimeout(() => {
+        successMessageRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 100);
+
       // Reset to idle after 5 seconds
       setTimeout(() => setStatus('idle'), 5000);
     } catch (error) {
@@ -102,30 +138,48 @@ const Footer: React.FC = () => {
 
                 {/* Success/Error Messages */}
                 {status === 'success' && (
-                    <div className="bg-green-500/10 border border-green-500/20 text-green-400 px-6 py-4 font-sans text-sm" role="alert">
-                        ✓ Roadmap request sent successfully! Check your email.
+                    <div
+                        ref={successMessageRef}
+                        className="bg-green-500/10 border-2 border-green-500/30 text-green-400 px-6 py-5 font-sans text-sm md:text-base font-medium rounded-sm animate-pulse-once"
+                        role="alert"
+                    >
+                        <span className="text-lg mr-2">✓</span> Roadmap request sent successfully! Check your email.
                     </div>
                 )}
                 {status === 'error' && (
-                    <div className="bg-red-500/10 border border-red-500/20 text-red-400 px-6 py-4 font-sans text-sm" role="alert">
-                        ✗ Something went wrong. Please try again or contact us directly.
+                    <div
+                        ref={successMessageRef}
+                        className="bg-red-500/10 border-2 border-red-500/30 text-red-400 px-6 py-5 font-sans text-sm md:text-base font-medium rounded-sm"
+                        role="alert"
+                    >
+                        <span className="text-lg mr-2">✗</span> Something went wrong. Please try again or contact us directly.
                     </div>
                 )}
 
                 {/* ROW 1: Name & Business Name */}
                 <div className="flex flex-col md:flex-row gap-4">
+                    <div className="flex-1">
+                        <input
+                            type="text"
+                            placeholder="Your Name"
+                            value={name}
+                            onChange={(e) => {
+                                setName(e.target.value);
+                                setNameError('');
+                            }}
+                            aria-label="Your full name"
+                            aria-invalid={nameError ? 'true' : 'false'}
+                            className={`w-full bg-white/5 border ${nameError ? 'border-red-500/50' : 'border-white/10'} text-white px-6 py-4 focus:outline-none focus:border-white focus:ring-2 focus:ring-white/20 transition-all placeholder:text-gray-600 font-sans`}
+                        />
+                        {nameError && (
+                            <p className="text-red-400 text-xs mt-1.5 font-sans" role="alert">
+                                {nameError}
+                            </p>
+                        )}
+                    </div>
                     <input
                         type="text"
-                        placeholder="Your Name"
-                        required
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        aria-label="Your full name"
-                        className="flex-1 bg-white/5 border border-white/10 text-white px-6 py-4 focus:outline-none focus:border-white focus:ring-2 focus:ring-white/20 transition-all placeholder:text-gray-600 font-sans"
-                    />
-                    <input
-                        type="text"
-                        placeholder="Business Name"
+                        placeholder="Business Name (Optional)"
                         value={businessName}
                         onChange={(e) => setBusinessName(e.target.value)}
                         aria-label="Your business name (optional)"
@@ -148,34 +202,54 @@ const Footer: React.FC = () => {
                         className={`w-full bg-white/5 border ${websiteError ? 'border-red-500/50' : 'border-white/10'} text-white px-6 py-4 focus:outline-none focus:border-white focus:ring-2 focus:ring-white/20 transition-all placeholder:text-gray-600 font-sans`}
                     />
                     {websiteError && (
-                        <p className="text-red-400 text-xs mt-2 font-sans" role="alert">
+                        <p className="text-red-400 text-xs mt-1.5 font-sans" role="alert">
                             {websiteError}
                         </p>
                     )}
                 </div>
 
                 {/* ROW 3: Description */}
-                <textarea
-                    placeholder="Describe a manual process (e.g., 'I spend 2 hours a day copying leads from Instagram to Excel')..."
-                    required
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    rows={4}
-                    aria-label="Describe your manual process that you want to automate"
-                    className="w-full bg-white/5 border border-white/10 text-white px-6 py-4 focus:outline-none focus:border-white focus:ring-2 focus:ring-white/20 transition-all placeholder:text-gray-600 font-sans resize-none"
-                />
+                <div className="w-full">
+                    <textarea
+                        placeholder="Describe a manual process (e.g., 'I spend 2 hours a day copying leads from Instagram to Excel')..."
+                        value={description}
+                        onChange={(e) => {
+                            setDescription(e.target.value);
+                            setDescriptionError('');
+                        }}
+                        rows={4}
+                        aria-label="Describe your manual process that you want to automate"
+                        aria-invalid={descriptionError ? 'true' : 'false'}
+                        className={`w-full bg-white/5 border ${descriptionError ? 'border-red-500/50' : 'border-white/10'} text-white px-6 py-4 focus:outline-none focus:border-white focus:ring-2 focus:ring-white/20 transition-all placeholder:text-gray-600 font-sans resize-none`}
+                    />
+                    {descriptionError && (
+                        <p className="text-red-400 text-xs mt-1.5 font-sans" role="alert">
+                            {descriptionError}
+                        </p>
+                    )}
+                </div>
 
                 {/* ROW 4: Email & Submit */}
                 <div className="flex flex-col md:flex-row gap-4">
-                    <input
-                        type="email"
-                        placeholder="Enter your email..."
-                        required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        aria-label="Your email address"
-                        className="flex-1 bg-white/5 border border-white/10 text-white px-6 py-4 focus:outline-none focus:border-white focus:ring-2 focus:ring-white/20 transition-all placeholder:text-gray-600 font-sans"
-                    />
+                    <div className="flex-1">
+                        <input
+                            type="email"
+                            placeholder="Enter your email..."
+                            value={email}
+                            onChange={(e) => {
+                                setEmail(e.target.value);
+                                setEmailError('');
+                            }}
+                            aria-label="Your email address"
+                            aria-invalid={emailError ? 'true' : 'false'}
+                            className={`w-full bg-white/5 border ${emailError ? 'border-red-500/50' : 'border-white/10'} text-white px-6 py-4 focus:outline-none focus:border-white focus:ring-2 focus:ring-white/20 transition-all placeholder:text-gray-600 font-sans`}
+                        />
+                        {emailError && (
+                            <p className="text-red-400 text-xs mt-1.5 font-sans" role="alert">
+                                {emailError}
+                            </p>
+                        )}
+                    </div>
                     <button
                         type="submit"
                         disabled={status === 'loading'}
