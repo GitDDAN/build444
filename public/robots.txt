@@ -1,0 +1,9 @@
+# robots.txt for BUILD444
+User-agent: *
+Allow: /
+
+# Disallow admin or sensitive paths (add as needed)
+# Disallow: /admin/
+
+# Sitemap location
+Sitemap: https://build444.com/sitemap.xml

@@ -8,13 +8,47 @@ const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [websiteError, setWebsiteError] = useState('');
 
-  // 2. FUNCTION: Sends data to n8n
+  // 2. FUNCTION: Validates and formats website URL
+  const validateAndFormatWebsite = (url: string): string | null => {
+    const trimmed = url.trim();
+    if (!trimmed) return ''; // Empty is okay (optional field)
+
+    // Remove protocol if present for validation
+    const withoutProtocol = trimmed.replace(/^https?:\/\//i, '');
+
+    // Check if it has a valid domain ending (TLD)
+    // Matches common TLDs: .com, .net, .org, .io, .co, .uk, etc.
+    const domainPattern = /^[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}$/;
+
+    if (!domainPattern.test(withoutProtocol)) {
+      return null; // Invalid domain
+    }
+
+    // Valid domain - add https:// if not present
+    return trimmed.match(/^https?:\/\//i) ? trimmed : 'https://' + trimmed;
+  };
+
+  // 3. FUNCTION: Sends data to n8n
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !description || !name) return;
 
+    // Validate website if provided
+    if (website.trim()) {
+      const formattedWebsite = validateAndFormatWebsite(website);
+      if (formattedWebsite === null) {
+        setWebsiteError('Please enter a valid domain (e.g., example.com)');
+        return;
+      }
+      setWebsiteError('');
+    }
+
     setStatus('loading');
+
+    // Format website URL
+    const formattedWebsite = validateAndFormatWebsite(website) || '';
 
     try {
       // YOUR n8n URL
@@ -24,13 +58,13 @@ const Footer: React.FC = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         // 3. PAYLOAD: Sending all 5 fields now
-        body: JSON.stringify({ 
+        body: JSON.stringify({
             name,
             businessName,
-            website,
-            email, 
-            description, 
-            date: new Date().toISOString() 
+            website: formattedWebsite,
+            email,
+            description,
+            date: new Date().toISOString()
         }),
       });
 
@@ -39,14 +73,17 @@ const Footer: React.FC = () => {
       setName('');
       setBusinessName('');
       setWebsite('');
-      setEmail(''); 
+      setEmail('');
       setDescription('');
-      alert("Roadmap request sent! Check your email."); 
+
+      // Reset to idle after 5 seconds
+      setTimeout(() => setStatus('idle'), 5000);
     } catch (error) {
       console.error(error);
       setStatus('error');
-    } finally {
-      setStatus('idle');
+
+      // Reset to idle after 5 seconds
+      setTimeout(() => setStatus('idle'), 5000);
     }
   };
 
@@ -61,8 +98,20 @@ const Footer: React.FC = () => {
                 Tell us about your manual process, and we'll generate a custom AI roadmap for you.
             </p>
 
-            <form className="flex flex-col gap-4 max-w-lg mx-auto" onSubmit={handleSubmit}>
-                
+            <form className="flex flex-col gap-4 max-w-lg mx-auto" onSubmit={handleSubmit} aria-label="AI Roadmap Request Form">
+
+                {/* Success/Error Messages */}
+                {status === 'success' && (
+                    <div className="bg-green-500/10 border border-green-500/20 text-green-400 px-6 py-4 font-sans text-sm" role="alert">
+                        ✓ Roadmap request sent successfully! Check your email.
+                    </div>
+                )}
+                {status === 'error' && (
+                    <div className="bg-red-500/10 border border-red-500/20 text-red-400 px-6 py-4 font-sans text-sm" role="alert">
+                        ✗ Something went wrong. Please try again or contact us directly.
+                    </div>
+                )}
+
                 {/* ROW 1: Name & Business Name */}
                 <div className="flex flex-col md:flex-row gap-4">
                     <input
@@ -71,25 +120,39 @@ const Footer: React.FC = () => {
                         required
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="flex-1 bg-white/5 border border-white/10 text-white px-6 py-4 focus:outline-none focus:border-white transition-colors placeholder:text-gray-600 font-sans"
+                        aria-label="Your full name"
+                        className="flex-1 bg-white/5 border border-white/10 text-white px-6 py-4 focus:outline-none focus:border-white focus:ring-2 focus:ring-white/20 transition-all placeholder:text-gray-600 font-sans"
                     />
                     <input
                         type="text"
                         placeholder="Business Name"
                         value={businessName}
                         onChange={(e) => setBusinessName(e.target.value)}
-                        className="flex-1 bg-white/5 border border-white/10 text-white px-6 py-4 focus:outline-none focus:border-white transition-colors placeholder:text-gray-600 font-sans"
+                        aria-label="Your business name (optional)"
+                        className="flex-1 bg-white/5 border border-white/10 text-white px-6 py-4 focus:outline-none focus:border-white focus:ring-2 focus:ring-white/20 transition-all placeholder:text-gray-600 font-sans"
                     />
                 </div>
 
                 {/* ROW 2: Website URL */}
-                <input
-                    type="url"
-                    placeholder="Website URL (e.g. https://yoursite.com)"
-                    value={website}
-                    onChange={(e) => setWebsite(e.target.value)}
-                    className="w-full bg-white/5 border border-white/10 text-white px-6 py-4 focus:outline-none focus:border-white transition-colors placeholder:text-gray-600 font-sans"
-                />
+                <div className="w-full">
+                    <input
+                        type="text"
+                        placeholder="Website (e.g. yoursite.com)"
+                        value={website}
+                        onChange={(e) => {
+                            setWebsite(e.target.value);
+                            setWebsiteError(''); // Clear error when user types
+                        }}
+                        aria-label="Your website URL (optional)"
+                        aria-invalid={websiteError ? 'true' : 'false'}
+                        className={`w-full bg-white/5 border ${websiteError ? 'border-red-500/50' : 'border-white/10'} text-white px-6 py-4 focus:outline-none focus:border-white focus:ring-2 focus:ring-white/20 transition-all placeholder:text-gray-600 font-sans`}
+                    />
+                    {websiteError && (
+                        <p className="text-red-400 text-xs mt-2 font-sans" role="alert">
+                            {websiteError}
+                        </p>
+                    )}
+                </div>
 
                 {/* ROW 3: Description */}
                 <textarea
@@ -98,7 +161,8 @@ const Footer: React.FC = () => {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     rows={4}
-                    className="w-full bg-white/5 border border-white/10 text-white px-6 py-4 focus:outline-none focus:border-white transition-colors placeholder:text-gray-600 font-sans resize-none"
+                    aria-label="Describe your manual process that you want to automate"
+                    className="w-full bg-white/5 border border-white/10 text-white px-6 py-4 focus:outline-none focus:border-white focus:ring-2 focus:ring-white/20 transition-all placeholder:text-gray-600 font-sans resize-none"
                 />
 
                 {/* ROW 4: Email & Submit */}
@@ -109,12 +173,14 @@ const Footer: React.FC = () => {
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="flex-1 bg-white/5 border border-white/10 text-white px-6 py-4 focus:outline-none focus:border-white transition-colors placeholder:text-gray-600 font-sans"
+                        aria-label="Your email address"
+                        className="flex-1 bg-white/5 border border-white/10 text-white px-6 py-4 focus:outline-none focus:border-white focus:ring-2 focus:ring-white/20 transition-all placeholder:text-gray-600 font-sans"
                     />
                     <button
                         type="submit"
                         disabled={status === 'loading'}
-                        className="bg-white text-black font-display font-bold uppercase tracking-widest px-8 py-4 hover:bg-gray-200 transition-colors whitespace-nowrap"
+                        aria-label="Submit roadmap request"
+                        className="bg-white text-black font-display font-bold uppercase tracking-widest px-8 py-4 hover:bg-gray-200 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black transition-all whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         {status === 'loading' ? 'Analyzing...' : 'Get Roadmap'}
                     </button>
@@ -125,10 +191,9 @@ const Footer: React.FC = () => {
         {/* Footer Links */}
         <div className="flex flex-col md:flex-row justify-between items-center text-xs text-gray-600 font-sans tracking-widest uppercase pt-12 border-t border-white/5">
             <p>&copy; 2025 BUILD444. All Rights Reserved.</p>
-            <div className="flex gap-6 mt-4 md:mt-0">
-                <a href="#" className="hover:text-white transition-colors">Privacy</a>
-                <a href="#" className="hover:text-white transition-colors">Terms</a>
-                <a href="#" className="hover:text-white transition-colors">Contact</a>
+            <div className="flex flex-col md:flex-row gap-6 mt-4 md:mt-0 items-center">
+                <a href="tel:+4561712425" className="hover:text-white transition-colors" aria-label="Call us at +45 61 71 24 25">+45 61 71 24 25</a>
+                <a href="mailto:daniel@build444.com" className="hover:text-white transition-colors" aria-label="Email us">Contact</a>
             </div>
         </div>
       </div>

@@ -63,32 +63,32 @@ const HorizontalScrollSection: React.FC = () => {
           </div>
 
           {cards.map((card) => (
-            <div 
+            <div
               key={card.id}
-              className="group relative h-[70vh] w-[85vw] md:w-[60vw] lg:w-[45vw] flex-shrink-0 overflow-hidden bg-surface border border-white/5"
+              className="group relative h-[70vh] w-[85vw] md:w-[60vw] lg:w-[45vw] flex-shrink-0 overflow-hidden bg-surface border border-white/5 hover:border-white/20 transition-all duration-500"
             >
               {/* Background Image */}
-              <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-110">
-                <img 
-                  src={card.imgUrl} 
+              <div className="absolute inset-0 transition-all duration-700 group-hover:scale-105">
+                <img
+                  src={card.imgUrl}
                   alt={card.title}
-                  className="h-full w-full object-cover opacity-40 grayscale group-hover:grayscale-0 transition-all duration-500"
+                  className="h-full w-full object-cover opacity-50 grayscale-[0.7] group-hover:opacity-60 group-hover:grayscale-0 transition-all duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent group-hover:via-black/10 transition-all duration-700" />
               </div>
 
               {/* Content */}
               <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                 <div className="mb-auto flex justify-between items-start w-full border-b border-white/20 pb-4">
-                     <span className="font-mono text-4xl md:text-6xl text-white/20 font-bold">{card.id}</span>
+                     <span className="font-mono text-4xl md:text-6xl text-white/20 font-bold group-hover:text-white/30 transition-colors duration-500">{card.id}</span>
                      <span className="font-sans text-xs uppercase tracking-widest bg-white text-black px-2 py-1">{card.sub}</span>
                 </div>
 
-                <div className="mt-12 md:mt-0 transform transition-transform duration-500 translate-y-4 group-hover:translate-y-0">
+                <div className="mt-12 md:mt-0 transform transition-all duration-500 group-hover:translate-y-0">
                     <h3 className="font-display font-bold text-3xl md:text-5xl lg:text-6xl leading-tight mb-6 uppercase">
                     {card.title}
                     </h3>
-                    <p className="font-sans text-gray-300 text-sm md:text-lg max-w-md leading-relaxed opacity-80 group-hover:opacity-100">
+                    <p className="font-sans text-gray-300 text-sm md:text-lg max-w-md leading-relaxed opacity-90 group-hover:opacity-100 transition-opacity duration-500">
                     {card.description}
                     </p>
                 </div>
