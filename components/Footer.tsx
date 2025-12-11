@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
 const Footer: React.FC = () => {
   const successMessageRef = useRef<HTMLDivElement>(null);
@@ -134,13 +134,13 @@ const Footer: React.FC = () => {
                 Tell us about your manual process, and we'll generate a custom AI roadmap for you.
             </p>
 
-            <form className="flex flex-col gap-4 max-w-lg mx-auto" onSubmit={handleSubmit} aria-label="AI Roadmap Request Form">
+            <form className="flex flex-col gap-4 max-w-lg mx-auto" onSubmit={handleSubmit} aria-label="AI Roadmap Request Form" noValidate>
 
                 {/* Success/Error Messages */}
                 {status === 'success' && (
                     <div
                         ref={successMessageRef}
-                        className="bg-green-500/10 border-2 border-green-500/30 text-green-400 px-6 py-5 font-sans text-sm md:text-base font-medium rounded-sm animate-pulse-once"
+                        className="bg-green-500/10 border-2 border-green-500/30 text-green-400 px-6 py-5 font-sans text-sm md:text-base font-medium rounded-sm animate-pulse-once text-left"
                         role="alert"
                     >
                         <span className="text-lg mr-2">✓</span> Roadmap request sent successfully! Check your email.
@@ -149,7 +149,7 @@ const Footer: React.FC = () => {
                 {status === 'error' && (
                     <div
                         ref={successMessageRef}
-                        className="bg-red-500/10 border-2 border-red-500/30 text-red-400 px-6 py-5 font-sans text-sm md:text-base font-medium rounded-sm"
+                        className="bg-red-500/10 border-2 border-red-500/30 text-red-400 px-6 py-5 font-sans text-sm md:text-base font-medium rounded-sm text-left"
                         role="alert"
                     >
                         <span className="text-lg mr-2">✗</span> Something went wrong. Please try again or contact us directly.
@@ -172,7 +172,7 @@ const Footer: React.FC = () => {
                             className={`w-full bg-white/5 border ${nameError ? 'border-red-500/50' : 'border-white/10'} text-white px-6 py-4 focus:outline-none focus:border-white focus:ring-2 focus:ring-white/20 transition-all placeholder:text-gray-600 font-sans`}
                         />
                         {nameError && (
-                            <p className="text-red-400 text-xs mt-1.5 font-sans" role="alert">
+                            <p className="text-red-400 text-xs mt-1.5 font-sans text-left" role="alert">
                                 {nameError}
                             </p>
                         )}
@@ -202,7 +202,7 @@ const Footer: React.FC = () => {
                         className={`w-full bg-white/5 border ${websiteError ? 'border-red-500/50' : 'border-white/10'} text-white px-6 py-4 focus:outline-none focus:border-white focus:ring-2 focus:ring-white/20 transition-all placeholder:text-gray-600 font-sans`}
                     />
                     {websiteError && (
-                        <p className="text-red-400 text-xs mt-1.5 font-sans" role="alert">
+                        <p className="text-red-400 text-xs mt-1.5 font-sans text-left" role="alert">
                             {websiteError}
                         </p>
                     )}
@@ -223,7 +223,7 @@ const Footer: React.FC = () => {
                         className={`w-full bg-white/5 border ${descriptionError ? 'border-red-500/50' : 'border-white/10'} text-white px-6 py-4 focus:outline-none focus:border-white focus:ring-2 focus:ring-white/20 transition-all placeholder:text-gray-600 font-sans resize-none`}
                     />
                     {descriptionError && (
-                        <p className="text-red-400 text-xs mt-1.5 font-sans" role="alert">
+                        <p className="text-red-400 text-xs mt-1.5 font-sans text-left" role="alert">
                             {descriptionError}
                         </p>
                     )}
@@ -245,7 +245,7 @@ const Footer: React.FC = () => {
                             className={`w-full bg-white/5 border ${emailError ? 'border-red-500/50' : 'border-white/10'} text-white px-6 py-4 focus:outline-none focus:border-white focus:ring-2 focus:ring-white/20 transition-all placeholder:text-gray-600 font-sans`}
                         />
                         {emailError && (
-                            <p className="text-red-400 text-xs mt-1.5 font-sans" role="alert">
+                            <p className="text-red-400 text-xs mt-1.5 font-sans text-left" role="alert">
                                 {emailError}
                             </p>
                         )}
@@ -262,6 +262,28 @@ const Footer: React.FC = () => {
             </form>
         </div>
         
+        {/* Back to Top Button */}
+        <div className="flex justify-center mb-12">
+            <button
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="group relative overflow-hidden bg-white/5 border border-white/10 hover:border-white/30 px-8 py-4 transition-all duration-500 hover:bg-white/10"
+                aria-label="Scroll to top"
+            >
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                <div className="relative flex items-center gap-3">
+                    <span className="font-display font-bold text-xs uppercase tracking-widest text-white/70 group-hover:text-white transition-colors">Back to Top</span>
+                    <svg
+                        className="w-4 h-4 text-white/70 group-hover:text-white group-hover:-translate-y-1 transition-all duration-300"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                    </svg>
+                </div>
+            </button>
+        </div>
+
         {/* Footer Links */}
         <div className="flex flex-col md:flex-row justify-between items-center text-xs text-gray-600 font-sans tracking-widest uppercase pt-12 border-t border-white/5">
             <p>&copy; 2025 BUILD444. All Rights Reserved.</p>

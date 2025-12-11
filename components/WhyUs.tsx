@@ -3,9 +3,9 @@ import { motion } from 'framer-motion';
 
 const WhyUs: React.FC = () => {
   return (
-    <section className="bg-background py-32 md:py-48 px-6 overflow-hidden">
+    <section className="bg-background py-16 md:py-32 px-6 overflow-hidden">
       <div className="container mx-auto">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -13,7 +13,7 @@ const WhyUs: React.FC = () => {
           className="max-w-6xl"
         >
           <h2 className="font-display font-bold text-4xl md:text-6xl lg:text-8xl leading-[0.9] tracking-tighter mb-16 text-center md:text-left">
-            <span className="text-gray-600">MOST AGENCIES GIVE YOU A TOOL.</span>
+            <span className="text-gray-400">MOST AGENCIES GIVE YOU A TOOL.</span>
             <br />
             <span className="text-white">WE GIVE YOU A SOLUTION.</span>
           </h2>
