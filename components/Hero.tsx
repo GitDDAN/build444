@@ -71,13 +71,17 @@ const Hero: React.FC = () => {
       -------------------------------------------------- */}
       <div className="relative h-screen w-full z-10 flex items-center justify-center border-t border-white/10 bg-[#0f0f0f]">
         <div className="absolute inset-0 z-0">
-           <video
+           <motion.video
             src="/images/Whisk_ugmyqwm1mtm0qty50cm2etotygm4qtl2ctn10cz.mp4"
             autoPlay
             loop
             muted
             playsInline
             className="w-full h-full object-cover opacity-60 grayscale contrast-125 object-[center_35%] md:object-center"
+            initial={{ filter: "grayscale(100%)" }}
+            animate={{ filter: "grayscale(0%)" }}
+            transition={{ duration: 3, delay: 0.5, ease: "easeOut" }}
+            style={{ filter: "grayscale(100%)" }}
           />
            <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/80" />
         </div>

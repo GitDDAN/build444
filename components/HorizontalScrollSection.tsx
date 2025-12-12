@@ -60,7 +60,7 @@ const HorizontalScrollSection: React.FC = () => {
         <div className="flex flex-col gap-8">
           {cards.map((card) => {
             const cardRef = useRef(null);
-            const isInView = useInView(cardRef, { amount: 0.5 });
+            const isInView = useInView(cardRef, { amount: 0.3, once: false });
             const [isPressed, setIsPressed] = React.useState(false);
 
             return (
