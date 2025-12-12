@@ -29,7 +29,7 @@ const Hero: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display font-bold text-[2.55rem] sm:text-[3.06rem] md:text-8xl lg:text-[9rem] leading-[0.9] text-white tracking-tighter mb-8"
+              className="font-display font-bold text-[2.55rem] sm:text-[3.06rem] md:text-[5.34rem] lg:text-[8.01rem] leading-[0.9] text-white tracking-tighter mb-8"
             >
               AUTOMATE
               <br />
@@ -93,7 +93,7 @@ const Hero: React.FC = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="font-display font-bold text-4xl md:text-8xl lg:text-[9rem] leading-none text-white tracking-tighter mb-4 md:mb-32 md:-mt-[20vh]"
+              className="font-display font-bold text-4xl md:text-[5.34rem] lg:text-[8.01rem] leading-none text-white tracking-tighter mb-4 md:mb-32 md:-mt-[20vh]"
             >
               <span className="block md:inline whitespace-nowrap">BUILD WHILE</span>
               <br className="hidden md:block" />
