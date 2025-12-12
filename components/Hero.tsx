@@ -105,10 +105,13 @@ const Hero: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.8 }}
-              className="font-sans text-xs md:text-lg font-light text-white tracking-wide mb-12 max-w-2xl relative overflow-hidden px-6 py-2 md:px-0 md:py-0 whitespace-nowrap md:whitespace-normal"
+              className="font-sans text-xs md:text-lg font-light text-white tracking-wide mb-12 max-w-2xl relative overflow-hidden px-6 py-2 md:px-0 md:py-0"
             >
               <span className="absolute inset-0 bg-gradient-to-r from-white/5 via-white/10 to-white/5 animate-shimmer md:hidden" style={{ backgroundSize: '200% 100%' }}></span>
-              <span className="relative z-10 md:static">Keep your tools. Automate your work. Scale without limits.</span>
+              <span className="relative z-10 md:static text-center md:text-left block">
+                Keep your tools. Automate your work.<br/>
+                Scale without limits.
+              </span>
             </motion.p>
 
             <style>{`
