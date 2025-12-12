@@ -13,9 +13,9 @@ const WhyUs: React.FC = () => {
           className="max-w-6xl"
         >
           <h2 className="font-display font-bold text-4xl md:text-6xl lg:text-8xl leading-[0.9] tracking-tighter mb-16 text-center md:text-left">
-            <span className="text-gray-400">MOST AGENCIES GIVE YOU A TOOL.</span>
+            <span className="text-gray-400">MOST AGENCIES SELL YOU A PLATFORM.</span>
             <br />
-            <span className="text-white">WE GIVE YOU A SOLUTION.</span>
+            <span className="text-white">WE WORK WITH YOURS.</span>
           </h2>
           
           <div className="flex flex-col md:flex-row gap-12 items-start border-t border-white/10 pt-12">
@@ -28,7 +28,7 @@ const WhyUs: React.FC = () => {
             >
                 <div className="absolute top-0 left-8 w-12 h-1 bg-white/30"></div>
                 <p className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed">
-                    No coding required. No team to manage. We build, automate, and maintain everything for you.
+                    No coding required. No new systems to learn. We automate what you already have—then build what you need.
                 </p>
             </motion.div>
             <div className="flex-1 flex flex-col gap-4">

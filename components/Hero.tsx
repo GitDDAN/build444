@@ -45,7 +45,7 @@ const Hero: React.FC = () => {
               transition={{ delay: 0.5, duration: 1 }}
               className="font-sans text-[0.97rem] md:text-[1.06rem] font-light text-white/70 tracking-wide"
             >
-              We use AI to scale your business without you lifting a finger.
+              We automate what you're already doing—no new systems, no tech overhaul, just smarter workflows.
             </motion.p>
           </div>
         </div>
@@ -108,7 +108,7 @@ const Hero: React.FC = () => {
               className="font-sans text-xs md:text-lg font-light text-white tracking-wide mb-12 max-w-2xl relative overflow-hidden px-6 py-2 md:px-0 md:py-0 whitespace-nowrap md:whitespace-normal"
             >
               <span className="absolute inset-0 bg-gradient-to-r from-white/5 via-white/10 to-white/5 animate-shimmer md:hidden" style={{ backgroundSize: '200% 100%' }}></span>
-              <span className="relative z-10 md:static">Beat the competition without hiring a team.</span>
+              <span className="relative z-10 md:static">Keep your tools. Automate your work. Scale without limits.</span>
             </motion.p>
 
             <style>{`

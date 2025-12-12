@@ -12,23 +12,23 @@ interface CardProps {
 const cards: CardProps[] = [
   {
     id: "01",
-    sub: "DESIGN & IDENTITY",
-    title: "WE BUILD YOUR\nBRAND.",
-    description: "Professional websites and brand identity that positions you as the obvious choice in your market.",
+    sub: "DESIGN & POSITIONING",
+    title: "WE OPTIMIZE\nYOUR PRESENCE.",
+    description: "Whether you need a new website or want to enhance what you have—we position you as the obvious choice.",
     imgUrl: "/images/section1.jpeg"
   },
   {
     id: "02",
     sub: "AUTOMATION",
     title: "WE HANDLE\nTHE BOOKINGS.",
-    description: "Stop answering the phone 24/7. Our systems book appointments and reply to customers for you.",
+    description: "Stop answering the phone 24/7. Our AI integrates with your setup to book appointments and reply to customers for you.",
     imgUrl: "/images/section2.png"
   },
   {
     id: "03",
     sub: "GROWTH",
     title: "WE BRING THE\nCUSTOMERS.",
-    description: "Proven systems for reviews, leads, and sales. We build it, optimize it, and hand you the keys.",
+    description: "Proven systems for reviews, leads, and sales that work with your existing tools—or new ones if needed.",
     imgUrl: "/images/section3.png"
   }
 ];
