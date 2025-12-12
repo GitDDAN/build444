@@ -29,7 +29,7 @@ const Hero: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display font-bold text-[2.55rem] sm:text-[3.06rem] md:text-[4.08rem] lg:text-[5.1rem] leading-[0.9] text-white tracking-tighter mb-8"
+              className="font-display font-bold text-[2.55rem] sm:text-[3.06rem] md:text-8xl lg:text-[9rem] leading-[0.9] text-white tracking-tighter mb-8"
             >
               AUTOMATE
               <br />
@@ -89,7 +89,7 @@ const Hero: React.FC = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="font-display font-bold text-4xl md:text-8xl lg:text-[9rem] leading-none text-white tracking-tighter mb-4"
+              className="font-display font-bold text-4xl md:text-8xl lg:text-[9rem] leading-none text-white tracking-tighter mb-4 md:mb-32 md:-mt-[20vh]"
             >
               <span className="block md:inline whitespace-nowrap">BUILD WHILE</span>
               <br className="hidden md:block" />
@@ -101,10 +101,10 @@ const Hero: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.8 }}
-              className="relative font-sans text-xs md:text-lg font-light text-white tracking-wide mb-12 md:mb-12 max-w-2xl px-6 py-2 overflow-hidden whitespace-nowrap"
+              className="font-sans text-xs md:text-lg font-light text-white tracking-wide mb-12 max-w-2xl relative overflow-hidden px-6 py-2 md:px-0 md:py-0 whitespace-nowrap md:whitespace-normal"
             >
-              <span className="absolute inset-0 bg-gradient-to-r from-white/5 via-white/10 to-white/5 animate-shimmer" style={{ backgroundSize: '200% 100%' }}></span>
-              <span className="relative z-10">Beat the competition without hiring a team.</span>
+              <span className="absolute inset-0 bg-gradient-to-r from-white/5 via-white/10 to-white/5 animate-shimmer md:hidden" style={{ backgroundSize: '200% 100%' }}></span>
+              <span className="relative z-10 md:static">Beat the competition without hiring a team.</span>
             </motion.p>
 
             <style>{`
@@ -121,9 +121,7 @@ const Hero: React.FC = () => {
                 animation: shimmer 8s ease-in-out infinite;
               }
             `}</style>
-          </div>
 
-          <div className="absolute bottom-[18%] inset-x-0 flex justify-center md:relative md:bottom-auto md:inset-x-auto">
             <motion.button
                initial={{ opacity: 0, y: 20 }}
                whileInView={{ opacity: 1, y: 0 }}
@@ -135,9 +133,13 @@ const Hero: React.FC = () => {
                  const footer = document.querySelector('footer');
                  footer?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                }}
-               className="w-[250px] bg-white text-black font-display font-bold text-sm md:text-base px-10 py-5 uppercase tracking-widest hover:bg-gray-200 transition-colors cursor-pointer"
+               className="absolute bottom-[18%] left-1/2 -translate-x-1/2 md:static md:translate-x-0 w-[250px] md:w-auto bg-white text-black font-display font-bold text-[9px] md:text-sm px-3 md:px-10 py-1.5 md:py-5 uppercase tracking-widest hover:bg-gray-200 transition-colors cursor-pointer"
             >
-              Get My Custom Roadmap
+              <span className="md:hidden">Get My Custom Roadmap</span>
+              <span className="hidden md:flex md:flex-col md:items-center md:gap-0">
+                <span className="whitespace-nowrap">Get Your</span>
+                <span className="whitespace-nowrap">Custom Roadmap</span>
+              </span>
             </motion.button>
           </div>
         </div>

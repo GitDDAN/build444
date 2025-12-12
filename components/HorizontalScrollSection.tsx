@@ -40,10 +40,10 @@ const HorizontalScrollSection: React.FC = () => {
   });
 
   // Map vertical scroll progress to horizontal movement (desktop only)
-  const x = useTransform(scrollYProgress, [0, 1], ["1%", "-75%"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["1%", "-95%"]);
 
   return (
-    <section ref={targetRef} className="relative bg-background md:h-[350vh]">
+    <section ref={targetRef} className="relative bg-background md:h-[450vh]">
       {/* Mobile: Normal vertical scroll */}
       <div className="md:hidden py-16 px-6">
         {/* Intro Text */}
