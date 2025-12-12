@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Hero from './components/Hero';
 import TrustBar from './components/TrustBar';
 import HorizontalScrollSection from './components/HorizontalScrollSection';
@@ -56,7 +57,12 @@ const App: React.FC = () => {
 
   return (
     <div className="bg-background text-white min-h-screen selection:bg-white selection:text-black">
-      <nav className="fixed top-0 left-0 w-full z-50 px-4 md:px-6 py-4 md:py-6 flex justify-between items-center text-white bg-black/40 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none">
+      <motion.nav
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="fixed top-0 left-0 w-full z-50 px-4 md:px-6 py-4 md:py-6 flex justify-between items-center text-white bg-black/40 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none"
+      >
         <div className="flex items-center gap-2 md:gap-3 md:mix-blend-difference">
           <img src="/images/build444_white_logo.png" alt="BUILD444 Logo" className="h-7 w-7 md:h-10 md:w-10 object-contain mix-blend-normal" />
           <span className="font-display font-bold text-base md:text-xl tracking-tighter">BUILD444</span>
@@ -65,12 +71,12 @@ const App: React.FC = () => {
           data-cal-namespace="30min"
           data-cal-link="build444/30min"
           data-cal-config='{"layout":"week_view"}'
-          className="bg-white text-black font-display font-bold text-[9px] md:text-xs px-3 md:px-6 py-1.5 md:py-3 uppercase tracking-widest hover:bg-gray-200 transition-colors cursor-pointer"
+          className="bg-white text-black font-display font-bold text-[9px] md:text-xs px-2.5 md:px-6 py-1.5 md:py-3 uppercase tracking-widest hover:bg-gray-200 transition-colors cursor-pointer mr-0.5 md:mr-0"
           aria-label="Book a 30-minute consultation call"
         >
           Book a Call
         </button>
-      </nav>
+      </motion.nav>
 
       <main>
         <Hero />
