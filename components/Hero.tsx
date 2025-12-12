@@ -137,9 +137,11 @@ const Hero: React.FC = () => {
                  const footer = document.querySelector('footer');
                  footer?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                }}
-               className="absolute bottom-[18%] left-1/2 -translate-x-1/2 md:static md:translate-x-0 w-[250px] md:w-auto bg-white text-black font-display font-bold text-[9px] md:text-sm px-3 md:px-10 py-1.5 md:py-5 uppercase tracking-widest hover:bg-gray-200 transition-colors cursor-pointer"
+               className="absolute bottom-[18%] inset-x-0 mx-auto md:static md:inset-x-auto md:mx-0 w-[210px] md:w-auto bg-white text-black font-display font-bold text-xs md:text-sm px-0 md:px-10 py-5 md:py-5 uppercase tracking-normal md:tracking-widest hover:bg-gray-200 transition-colors cursor-pointer"
             >
-              <span className="md:hidden">Get My Custom Roadmap</span>
+              <span className="md:hidden text-center">
+                Get Your<br/>Custom Roadmap
+              </span>
               <span className="hidden md:flex md:flex-col md:items-center md:gap-0">
                 <span className="whitespace-nowrap">Get Your</span>
                 <span className="whitespace-nowrap">Custom Roadmap</span>

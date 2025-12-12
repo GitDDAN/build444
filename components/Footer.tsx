@@ -14,24 +14,9 @@ const Footer: React.FC = () => {
   const [emailError, setEmailError] = useState('');
   const [descriptionError, setDescriptionError] = useState('');
 
-  // 2. FUNCTION: Validates and formats website URL
-  const validateAndFormatWebsite = (url: string): string | null => {
-    const trimmed = url.trim();
-    if (!trimmed) return ''; // Empty is okay (optional field)
-
-    // Remove protocol if present for validation
-    const withoutProtocol = trimmed.replace(/^https?:\/\//i, '');
-
-    // Check if it has a valid domain ending (TLD)
-    // Matches common TLDs: .com, .net, .org, .io, .co, .uk, etc.
-    const domainPattern = /^[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}$/;
-
-    if (!domainPattern.test(withoutProtocol)) {
-      return null; // Invalid domain
-    }
-
-    // Valid domain - add https:// if not present
-    return trimmed.match(/^https?:\/\//i) ? trimmed : 'https://' + trimmed;
+  // 2. FUNCTION: Simple formatting for links (no strict validation)
+  const formatLinks = (links: string): string => {
+    return links.trim(); // Just return trimmed input - accept any links
   };
 
   // 3. FUNCTION: Sends data to n8n
@@ -65,21 +50,14 @@ const Footer: React.FC = () => {
       hasError = true;
     }
 
-    // Validate website if provided
-    if (website.trim()) {
-      const formattedWebsite = validateAndFormatWebsite(website);
-      if (formattedWebsite === null) {
-        setWebsiteError('Please enter a valid domain (e.g., example.com)');
-        hasError = true;
-      }
-    }
+    // No validation needed for links - it's optional and accepts any text
 
     if (hasError) return;
 
     setStatus('loading');
 
-    // Format website URL
-    const formattedWebsite = validateAndFormatWebsite(website) || '';
+    // Format links (just trim)
+    const formattedLinks = formatLinks(website);
 
     try {
       // YOUR n8n URL
@@ -92,7 +70,7 @@ const Footer: React.FC = () => {
         body: JSON.stringify({
             name,
             businessName,
-            website: formattedWebsite,
+            website: formattedLinks,
             email,
             description,
             date: new Date().toISOString()
@@ -187,17 +165,17 @@ const Footer: React.FC = () => {
                     />
                 </div>
 
-                {/* ROW 2: Website URL */}
+                {/* ROW 2: Links (Optional) */}
                 <div className="w-full">
                     <input
                         type="text"
-                        placeholder="Website (e.g. yoursite.com)"
+                        placeholder="Links - Optional (e.g., website, LinkedIn, Instagram)"
                         value={website}
                         onChange={(e) => {
                             setWebsite(e.target.value);
                             setWebsiteError(''); // Clear error when user types
                         }}
-                        aria-label="Your website URL (optional)"
+                        aria-label="Any links you'd like to share (optional)"
                         aria-invalid={websiteError ? 'true' : 'false'}
                         className={`w-full bg-white/5 border ${websiteError ? 'border-red-500/50' : 'border-white/10'} text-white px-6 py-4 focus:outline-none focus:border-white focus:ring-2 focus:ring-white/20 transition-all placeholder:text-gray-600 font-sans`}
                     />
