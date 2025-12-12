@@ -48,7 +48,7 @@ const HorizontalScrollSection: React.FC = () => {
       <div className="md:hidden py-16 px-6">
         {/* Intro Text */}
         <div className="mb-12">
-          <h2 className="font-display font-bold text-4xl mb-4 leading-none">
+          <h2 className="font-display font-bold mb-4 leading-none" style={{ fontSize: 'clamp(2rem, 2rem + 1.5vw, 2.5rem)' }}>
             THE<br/>PROCESS
           </h2>
           <p className="font-sans text-gray-400 max-w-sm">
@@ -151,7 +151,7 @@ const HorizontalScrollSection: React.FC = () => {
           
           {/* Intro Text Block before cards start */}
           <div className="flex flex-col justify-center min-w-[90vw] md:min-w-[40vw] pr-12">
-             <h2 className="font-display font-bold text-5xl md:text-7xl mb-6 leading-none">
+             <h2 className="font-display font-bold mb-6 leading-none" style={{ fontSize: 'clamp(2.5rem, 2.5rem + 3vw, 4.5rem)' }}>
                 THE<br/>PROCESS
              </h2>
              <p className="font-sans text-gray-400 max-w-sm">

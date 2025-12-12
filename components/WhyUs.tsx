@@ -12,7 +12,7 @@ const WhyUs: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="max-w-6xl"
         >
-          <h2 className="font-display font-bold text-4xl md:text-6xl lg:text-8xl leading-[0.9] tracking-tighter mb-16 text-center md:text-left">
+          <h2 className="font-display font-bold leading-[0.9] tracking-tighter mb-16 text-center md:text-left" style={{ fontSize: 'clamp(2.25rem, 2.25rem + 4vw, 6rem)' }}>
             <span className="text-gray-400">MOST AGENCIES SELL YOU A PLATFORM.</span>
             <br />
             <span className="text-white">WE WORK WITH YOURS.</span>

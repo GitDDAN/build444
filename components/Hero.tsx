@@ -29,7 +29,8 @@ const Hero: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display font-bold text-[2.55rem] sm:text-[3.06rem] md:text-[5.34rem] lg:text-[8.01rem] leading-[0.9] text-white tracking-tighter mb-8"
+              className="font-display font-bold leading-[0.9] text-white tracking-tighter mb-8"
+              style={{ fontSize: 'clamp(2.55rem, 2.55rem + 5.5vw, 8.01rem)' }}
             >
               AUTOMATE
               <br />
@@ -43,7 +44,8 @@ const Hero: React.FC = () => {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5, duration: 1 }}
-              className="font-sans text-[0.97rem] md:text-[1.06rem] font-light text-white/70 tracking-wide"
+              className="font-sans font-light text-white/70 tracking-wide"
+              style={{ fontSize: 'clamp(0.97rem, 0.97rem + 0.15vw, 1.125rem)' }}
             >
               We automate what you're already doing—no new systems, no tech overhaul, just smarter workflows.
             </motion.p>
@@ -93,7 +95,8 @@ const Hero: React.FC = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="font-display font-bold text-4xl md:text-[5.34rem] lg:text-[8.01rem] leading-none text-white tracking-tighter mb-4 md:mb-32 md:-mt-[20vh]"
+              className="font-display font-bold leading-none text-white tracking-tighter mb-4 md:mb-32 md:-mt-[20vh]"
+              style={{ fontSize: 'clamp(2.25rem, 2.25rem + 5.5vw, 8.01rem)' }}
             >
               <span className="block md:inline whitespace-nowrap">BUILD WHILE</span>
               <br className="hidden md:block" />
@@ -105,7 +108,8 @@ const Hero: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.8 }}
-              className="font-sans text-xs md:text-lg font-light text-white tracking-wide mb-12 max-w-2xl relative overflow-hidden px-6 py-2 md:px-0 md:py-0"
+              className="font-sans font-light text-white tracking-wide mb-12 max-w-2xl relative overflow-hidden px-6 py-2 md:px-0 md:py-0"
+              style={{ fontSize: 'clamp(0.75rem, 0.75rem + 0.35vw, 1.125rem)' }}
             >
               <span className="absolute inset-0 bg-gradient-to-r from-white/5 via-white/10 to-white/5 animate-shimmer md:hidden" style={{ backgroundSize: '200% 100%' }}></span>
               <span className="relative z-10 md:static text-center md:text-left block">
